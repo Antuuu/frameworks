@@ -1,10 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { App } from './components/routes/App';
+import { createRoot } from 'react-dom/client';
+import App from './App';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <App/>
-);
+const rootElement = document.getElementById('root');
+
+// Perform a null check before using createRoot
+if (rootElement) {
+  const root = createRoot(rootElement);
+  root.render(<App />);
+} else {
+  console.error('Root element not found.');
+}
