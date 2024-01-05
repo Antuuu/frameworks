@@ -3,14 +3,7 @@ import { Link } from 'react-router-dom';
 import './../style/PhotosList.css'; // Import your custom styles
 import Pagination from './common/Pagination';
 import Album from './common/Album';
-
-interface Photo {
-  albumId: number;
-  id: number;
-  title: string;
-  url: string;
-  thumbnailUrl: string;
-}
+import Photo from './common/Photo'
 
 const PhotoList: React.FC = () => {
   const [photos, setPhotos] = useState<Photo[]>([]);

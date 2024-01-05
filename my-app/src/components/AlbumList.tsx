@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './../style/AlbumList.css'; // Import your custom styles
-import Pagination from "./common/Pagination"
-import User from "./common/User"
-
-interface Album {
-  userId: number;
-  id: number;
-  title: string;
-}
+import User from './common/User';
+import Album from './common/Album';
+import Pagination from './common/Pagination';
 
 const AlbumList: React.FC = () => {
   const [albums, setAlbums] = useState<Album[]>([]);
@@ -71,6 +66,9 @@ const AlbumList: React.FC = () => {
                     User: <Link to={`/users/${user.id}`}>{user.name}</Link>
                   </p>
                 )}
+                <Link to={`/albums/${album.id}`}>
+                  <button className="album-button">View Album</button>
+                </Link>
               </div>
             </li>
           );
