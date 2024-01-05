@@ -5,6 +5,7 @@ import PostList from './components/PostList';
 import IndividualPost from './components/IndividualPost';
 import UsersList from './components/UsersList'; // Import the UsersList component
 import UserDetails from './components/UserDetails';
+import CommentList from './components/CommentList';
 
 
 const Home: React.FC = () => {
@@ -22,6 +23,8 @@ const App: React.FC = () => {
           <Route path="/posts/:id" element={<IndividualPost />} />
           <Route path="/users" element={<UsersList />} /> {/* Add route for UsersList */}
           <Route path="/users/:id" element={<UserDetails />} />
+          <Route path="/comments" element={<CommentList />} /> {/* Add route for UsersList */}
+          <Route path="/comments/:id" element={<CommentList />} />          
           {/* Add other routes if needed */}
         </Routes>
       </div>

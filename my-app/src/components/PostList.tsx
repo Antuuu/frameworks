@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
-interface Post {
-  id: number;
-  title: string;
-  body: string;
-}
+import Post from './common/Post';
+import Pagination from './common/Pagination';
 
 const PostCard: React.FC<Post> = ({ id, title, body }) => {
   return (
@@ -22,6 +18,8 @@ const PostCard: React.FC<Post> = ({ id, title, body }) => {
 
 const PostList: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const postsPerPage = 10;
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -33,18 +31,31 @@ const PostList: React.FC = () => {
         const data: Post[] = await response.json();
         setPosts(data);
       } catch (error) {
-        console.error('Error fetching posts:');
+        console.error('Error fetching posts:', error);
       }
     };
 
     fetchPosts();
   }, []);
 
+  // Calculate pagination variables
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  // Change page
+  const handlePageChange = (pageNumber: number) => setCurrentPage(pageNumber);
+
   return (
     <div className="post-list">
-      {posts.map((post) => (
+      {currentPosts.map((post) => (
         <PostCard key={post.id} {...post} />
       ))}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={Math.ceil(posts.length / postsPerPage)}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };
