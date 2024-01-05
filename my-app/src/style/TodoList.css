@@ -1,0 +1,43 @@
+/* src/components/styles.css */
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .todo-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .todo-item {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    margin-bottom: 12px;
+  }
+  
+  .todo-content {
+    padding: 12px;
+  }
+  
+  .todo-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  .todo-status {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  
+  .todo-user {
+    font-size: 14px;
+  }
+  
