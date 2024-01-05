@@ -1,0 +1,24 @@
+/* src/components/UsersList.css */
+
+.users-list-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .user-item {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .user-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .user-link:hover {
+    color: #007bff;
+  }
+  
