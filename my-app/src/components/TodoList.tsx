@@ -1,5 +1,3 @@
-// src/components/TodoList.tsx
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Todo from './common/Todo';

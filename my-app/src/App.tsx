@@ -8,6 +8,7 @@ import UserDetails from './components/UserDetails';
 import CommentList from './components/CommentList';
 import TodoList from './components/TodoList';
 import AlbumList from './components/AlbumList';
+import PhotoList from './components/PhotoList';
 
 
 const Home: React.FC = () => {
@@ -30,7 +31,9 @@ const App: React.FC = () => {
           <Route path="/todo" element={<TodoList />} /> {/* Add route for UsersList */}
           <Route path="/todo/:id" element={<TodoList />} />   
           <Route path="/albums" element={<AlbumList />} /> {/* Add route for UsersList */}
-          <Route path="/albums/:id" element={<AlbumList />} />                                   
+          <Route path="/albums/:id" element={<AlbumList />} />      
+          <Route path="/photos" element={<PhotoList />} /> {/* Add route for UsersList */}
+          <Route path="/photos/:id" element={<PhotoList />} />                                         
           {/* Add other routes if needed */}
         </Routes>
       </div>

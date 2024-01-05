@@ -1,5 +1,3 @@
-// src/components/AlbumList.tsx
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './../style/AlbumList.css'; // Import your custom styles

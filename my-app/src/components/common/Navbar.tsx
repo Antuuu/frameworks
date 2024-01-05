@@ -24,7 +24,10 @@ const Navbar: React.FC = () => {
           </Link>
           <Link to="/albums" className="text-white">
             Albums
-          </Link>                                          
+          </Link>     
+          <Link to="/photos" className="text-white">
+            Photos
+          </Link>                                                  
           {/* Add more navigation links as needed */}
         </div>
       </div>
