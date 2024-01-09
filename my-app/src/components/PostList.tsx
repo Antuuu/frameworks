@@ -3,18 +3,19 @@ import { Link } from 'react-router-dom';
 import Post from './common/Post';
 import Pagination from './common/Pagination';
 
-const PostCard: React.FC<Post> = ({ id, title, body }) => {
-  return (
-    <div className="post-card">
-      <div className="post-content">
-        <h2 className="post-title">
-          <Link to={`/posts/${id}`}>{title}</Link>
-        </h2>
-        <p className="post-body">{body}</p>
-      </div>
+const PostCard: React.FC<{ post: Post; onDelete: (postId: number) => void }> = ({ post, onDelete }) => (
+  <li className="post-card">
+    <div className="post-content">
+      <h2 className="post-title">
+        <Link to={`/posts/${post.id}`}>{post.title}</Link>
+      </h2>
+      <p className="post-body">{post.body}</p>
+      <button onClick={() => onDelete(post.id)} className="delete-button">
+        Delete
+      </button>
     </div>
-  );
-};
+  </li>
+);
 
 const PostList: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -46,11 +47,27 @@ const PostList: React.FC = () => {
   // Change page
   const handlePageChange = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  const handleDelete = async (postId: number) => {
+    try {
+      const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete post');
+      }
+    } catch (error) {
+      console.error('Error deleting post:', error);
+    }
+  };
+
   return (
     <div className="post-list">
-      {currentPosts.map((post) => (
-        <PostCard key={post.id} {...post} />
-      ))}
+      <ul>
+        {currentPosts.map((post) => (
+          <PostCard key={post.id} post={post} onDelete={handleDelete} />
+        ))}
+      </ul>
       <Pagination
         currentPage={currentPage}
         totalPages={Math.ceil(posts.length / postsPerPage)}

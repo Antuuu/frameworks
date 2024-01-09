@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import User from './common/User';
+import UserForm from './UserForm'; // Import the UserForm component
 import './../style/UserDetails.css';
 
 const UserDetails: React.FC = () => {
@@ -24,26 +25,35 @@ const UserDetails: React.FC = () => {
     fetchUser();
   }, [id]);
 
-  if (!user) {
-    return <div>Loading...</div>;
-  }
+  const handleUpdateUser = (userData: any) => {
+    // Perform PUT operation using the userData
+    console.log('Update User:', userData);
+    // Example: updateUser(id, userData);
+  };
 
   return (
     <div className="user-details-container">
-      <h2 className="user-name">{user.name}</h2>
-      <p className="user-username">{`Username: ${user.username}`}</p>
-      <p className="user-email">{`Email: ${user.email}`}</p>
-      <p className="user-address">
-        {`Address: ${user.address?.street}, ${user.address?.suite}, ${user.address?.city}, ${user.address?.zipcode}`}
-      </p>
-      <p className="user-geo">
-        {`Geo: Latitude ${user.address?.geo?.lat}, Longitude ${user.address?.geo?.lng}`}
-      </p>
-      <p className="user-phone">{`Phone: ${user.phone}`}</p>
-      <p className="user-website">{`Website: ${user.website}`}</p>
-      <p className="user-company">
-        {`Company: ${user.company?.name}, Catchphrase: ${user.company?.catchPhrase}, BS: ${user.company?.bs}`}
-      </p>
+      {user && (
+        <>
+          <h2 className="user-name">{user.name}</h2>
+          <p className="user-username">{`Username: ${user.username}`}</p>
+          <p className="user-email">{`Email: ${user.email}`}</p>
+          <p className="user-address">
+            {`Address: ${user.address?.street}, ${user.address?.suite}, ${user.address?.city}, ${user.address?.zipcode}`}
+          </p>
+          <p className="user-geo">
+            {`Geo: Latitude ${user.address?.geo?.lat}, Longitude ${user.address?.geo?.lng}`}
+          </p>
+          <p className="user-phone">{`Phone: ${user.phone}`}</p>
+          <p className="user-website">{`Website: ${user.website}`}</p>
+          <p className="user-company">
+            {`Company: ${user.company?.name}, Catchphrase: ${user.company?.catchPhrase}, BS: ${user.company?.bs}`}
+          </p>
+
+          <h3>Edit User</h3>
+          <UserForm onSubmit={handleUpdateUser} />
+        </>
+      )}
     </div>
   );
 };

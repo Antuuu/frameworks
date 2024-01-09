@@ -10,7 +10,7 @@ const CommentList: React.FC = () => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch(`https://jsonplaceholder.typicode.com/comments`);
+        const response = await fetch('https://jsonplaceholder.typicode.com/comments');
         if (!response.ok) {
           throw new Error('Failed to fetch comments');
         }
@@ -32,6 +32,23 @@ const CommentList: React.FC = () => {
   // Change page
   const handlePageChange = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  const handleDelete = async (commentId: number) => {
+    try {
+      const response = await fetch(`https://jsonplaceholder.typicode.com/comments/${commentId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete comment');
+      }
+
+      // Update state after successful deletion
+      setComments((prevComments) => prevComments.filter((comment) => comment.id !== commentId));
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
+  };
+
   return (
     <div className="comment-list">
       <h2 className="text-2xl font-bold mb-4">All Comments</h2>
@@ -41,6 +58,9 @@ const CommentList: React.FC = () => {
             <div className="comment-name">{comment.name}</div>
             <div className="comment-email">{comment.email}</div>
             <div className="comment-body">{comment.body}</div>
+            <button onClick={() => handleDelete(comment.id)} className="delete-button">
+              Delete
+            </button>
           </li>
         ))}
       </ul>

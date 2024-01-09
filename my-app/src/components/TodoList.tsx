@@ -5,6 +5,29 @@ import User from './common/User';
 import Pagination from './common/Pagination';
 import './../style/TodoList.css'; // Import your custom styles
 
+interface TodoCardProps {
+  todo: Todo;
+  user: User | undefined;
+  onDelete: (todoId: number) => void;
+}
+
+const TodoCard: React.FC<TodoCardProps> = ({ todo, user, onDelete }) => (
+  <li className="todo-item">
+    <div className="todo-content">
+      <h3 className="todo-title">{todo.title}</h3>
+      <p className="todo-status">{todo.completed ? 'Completed' : 'Incomplete'}</p>
+      {user && (
+        <p className="todo-user">
+          User: <Link to={`/users/${user.id}`}>{user.name}</Link>
+        </p>
+      )}
+      <button onClick={() => onDelete(todo.id)} className="delete-button">
+        Delete
+      </button>
+    </div>
+  </li>
+);
+
 const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [users, setUsers] = useState<User[]>([]);
@@ -50,27 +73,27 @@ const TodoList: React.FC = () => {
   // Change page
   const handlePageChange = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  const handleDelete = async (todoId: number) => {
+    try {
+      const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${todoId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete todo');
+      }
+    } catch (error) {
+      console.error('Error deleting todo:', error);
+    }
+  };
+
   return (
     <div className="container">
       <h2 className="title">All Todos</h2>
       <ul className="todo-list">
-        {currentTodos.map((todo) => {
-          const user = users.find((user) => user.id === todo.userId);
-
-          return (
-            <li key={todo.id} className="todo-item">
-              <div className="todo-content">
-                <h3 className="todo-title">{todo.title}</h3>
-                <p className="todo-status">{todo.completed ? 'Completed' : 'Incomplete'}</p>
-                {user && (
-                  <p className="todo-user">
-                    User: <Link to={`/users/${user.id}`}>{user.name}</Link>
-                  </p>
-                )}
-              </div>
-            </li>
-          );
-        })}
+        {currentTodos.map((todo) => (
+          <TodoCard key={todo.id} todo={todo} user={users.find((user) => user.id === todo.userId)} onDelete={handleDelete} />
+        ))}
       </ul>
       <Pagination
         currentPage={currentPage}

@@ -50,6 +50,23 @@ const AlbumList: React.FC = () => {
   // Change page
   const handlePageChange = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  const handleDelete = async (albumId: number) => {
+    try {
+      const response = await fetch(`https://jsonplaceholder.typicode.com/albums/${albumId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete album');
+      }
+
+      // Update state after successful deletion
+      setAlbums((prevAlbums) => prevAlbums.filter((album) => album.id !== albumId));
+    } catch (error) {
+      console.error('Error deleting album:', error);
+    }
+  };
+
   return (
     <div className="container">
       <h2 className="title">All Albums</h2>
@@ -69,6 +86,9 @@ const AlbumList: React.FC = () => {
                 <Link to={`/albums/${album.id}`}>
                   <button className="album-button">View Album</button>
                 </Link>
+                <button onClick={() => handleDelete(album.id)} className="delete-button">
+                  Delete
+                </button>
               </div>
             </li>
           );

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './../style/PhotosList.css'; // Import your custom styles
 import Pagination from './common/Pagination';
 import Album from './common/Album';
-import Photo from './common/Photo'
+import Photo from './common/Photo';
 
 const PhotoList: React.FC = () => {
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -50,6 +50,23 @@ const PhotoList: React.FC = () => {
   // Change page
   const handlePageChange = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  const handleDelete = async (photoId: number) => {
+    try {
+      const response = await fetch(`https://jsonplaceholder.typicode.com/photos/${photoId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete photo');
+      }
+
+      // Update state after successful deletion
+      setPhotos((prevPhotos) => prevPhotos.filter((photo) => photo.id !== photoId));
+    } catch (error) {
+      console.error('Error deleting photo:', error);
+    }
+  };
+
   return (
     <div className="container">
       <h2 className="title">All Photos</h2>
@@ -67,6 +84,9 @@ const PhotoList: React.FC = () => {
                     Album: <Link to={`/albums/${album.id}`}>{album.title}</Link>
                   </p>
                 )}
+                <button onClick={() => handleDelete(photo.id)} className="delete-button">
+                  Delete
+                </button>
               </div>
             </li>
           );

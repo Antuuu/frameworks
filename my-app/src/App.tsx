@@ -13,7 +13,7 @@ import IndividualAlbum from './components/IndividualAlbum';
 
 
 const Home: React.FC = () => {
-  return <h1 className="text-4xl font-bold text-center mt-8">Welcome to My Blog</h1>;
+  return <h1 className="text-4xl font-bold text-center mt-8">Welcome to My Site</h1>;
 };
 
 const App: React.FC = () => {

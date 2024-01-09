@@ -7,7 +7,7 @@ const Navbar: React.FC = () => {
     <nav>
       <div>
         <Link to="/" className="text-white text-2xl font-bold">
-          My Blog
+          Frameworks WSEI
         </Link>
         <div>
           <Link to="/posts" className="text-white">
