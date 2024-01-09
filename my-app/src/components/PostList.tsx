@@ -1,3 +1,4 @@
+// PostList.tsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Post from './common/Post';
@@ -56,6 +57,9 @@ const PostList: React.FC = () => {
       if (!response.ok) {
         throw new Error('Failed to delete post');
       }
+
+      // Update state after successful deletion
+      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
     } catch (error) {
       console.error('Error deleting post:', error);
     }
