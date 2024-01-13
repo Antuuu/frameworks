@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import User from './common/User';
-import UserForm from './UserForm'; // Import the UserForm component
 import './../style/UserDetails.css';
 
 const UserDetails: React.FC = () => {
@@ -49,9 +48,6 @@ const UserDetails: React.FC = () => {
           <p className="user-company">
             {`Company: ${user.company?.name}, Catchphrase: ${user.company?.catchPhrase}, BS: ${user.company?.bs}`}
           </p>
-
-          <h3>Edit User</h3>
-          <UserForm onSubmit={handleUpdateUser} />
         </>
       )}
     </div>
